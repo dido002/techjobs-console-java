@@ -74,9 +74,9 @@ public class JobData {
 
         for (HashMap<String, String> row : allJobs) {
 
-            String aValue = row.get(column);
+            String aValue = row.get(column).toLowerCase();
 
-            if (aValue.contains(value)) {
+            if (aValue.contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -87,6 +87,26 @@ public class JobData {
     /**
      * Read in data from a CSV file and store it in a list
      */
+    public static ArrayList<HashMap<String, String>> findByValue (String value) {
+        loadData ();
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<> ();
+
+        for (HashMap<String, String> row : allJobs) {
+
+            for (String column : row.keySet ()) {
+                String aValue = row.get ( column );
+
+                if (aValue.toLowerCase().contains( value.toUpperCase () )) {
+                    jobs.add ( row );
+                    break;
+
+                }
+
+            }
+        }
+        return jobs;
+    }
+
     private static void loadData() {
 
         // Only load data once
